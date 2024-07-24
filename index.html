@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="assets/logo.svg" />
+    <title>Método Joback</title>
+  </head>
+  <body class="app light-mode">
+    <header class="navbar">
+      <div class="navbar-container">
+        <div class="logo-container">
+          <img src="assets/logo.svg" alt="Project Logo" />
+          <h1>Método Joback</h1>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="left-section">
+        <section class="chemical-section">
+          <div class="chemical-compound">
+            <h2>Compuesto Quimico:</h2>
+            <p class="chemical-result"></p>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <div class="form-container">
+            <h2>Agrega un nuevo incremento:</h2>
+            <form class="add-increment-form">
+              <label for="type-select">Tipo de incremento:</label>
+              <select id="type-select" class="chemical-select">
+                <option value="0">Seleccione</option>
+              </select>
+
+              <label for="name-select">Nombre del incremento:</label>
+              <select id="name-select" class="chemical-select">
+                <option value="0">Seleccione</option>
+              </select>
+
+              <button type="submit">Agregar</button>
+            </form>
+          </div>
+        </section>
+      </div>
+      
+      <div class="right-section">
+        <section class="table-information-section">
+          <table>
+            <thead>
+              <tr>
+                <th>Tipo de Incremento</th>
+                <th>Nombre del Incremento</th>
+                <th>H</th>
+                <th>G</th>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+                <th>D</th>
+                <th>Cantidad</th>
+              </tr>
+            </thead>
+            <tbody id="increments-tbody"></tbody>
+          </table>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      const incrementTypes = [
+        "Incrementos sin anillo",
+        "Incrementos con anillo",
+        "Incrementos en halogenos",
+        "Incrementos en oxigeno",
+        "Incrementos en nitrogeno",
+        "Incrementos en azufre",
+      ];
+    
+      const incrementNamesPerType = {
+        0: [{ name: "Seleccione", displayName: "Seleccione" }],
+        1: [
+          { value: "-CH3", displayName: "-CH3", H: -76.45, G: -43.96, A: 1.95E+1, B: -8.08E-3, C: 1.53E-4, D: -9.67E-8 },
+          { value: ">CH2", displayName: ">CH2", H: -20.64, G: 8.42, A: -9.09E-1, B: 9.50E-2, C: -5.44E-5, D: 1.19E-8 },
+          { value: ">CH-", displayName: ">CH-", H: 29.89, G: 58.36, A: -2.30E+1, B: 2.04E-1, C: -2.65E-4, D: 1.20E-7 },
+          { value: ">C<", displayName: ">C<", H: 82.23, G: 116.02, A: -6.62E+1, B: 4.27E-1, C: -6.41E-4, D: 3.01E-7 },
+          { value: "=CH2", displayName: "=CH2", H: -9.63, G: 3.77, A: 2.36E+1, B: -3.81E-2, C: 1.72E-4, D: -1.03E-7 },
+          { value: "=CH-", displayName: "=CH-", H: 37.97, G: 48.53, A: -8.00, B: 1.05E-1, C: -9.63E-5, D: 3.56E-8 },
+          { value: "=C<", displayName: "=C<", H: 83.99, G: 92.36, A: -2.81E+1, B: 2.08E-1, C: -3.06E-4, D: 1.46E-7 },
+          { value: "=C=", displayName: "=C=", H: 142.14, G: 136.70, A: 2.74E+1, B: -5.57E-2, C: 1.01E-4, D: -5.02E-8 },
+          { value: "≡CH", displayName: "≡CH", H: 79.30, G: 77.71, A: 2.45E+1, B: -2.71E-2, C: 1.11E-4, D: -6.78E-8 },
+          { value: "≡C-", displayName: "≡C-", H: 115.51, G: 109.82, A: 7.87, B: -8.33E-6, C: -8.33E-6, D: 1.39E-9 },
+        ],
+        2: [
+          { value: "-CH2-", displayName: "-CH2-", H: -26.80, G: -3.68, A: -6.03, B: 8.54E-2, C: -8.00E-6, D: -1.80E-8 }, 
+          { value: ">CH-", displayName: ">CH-", H: 8.67, G: 40.99, A: -2.05E+1, B: 1.62E-1, C: -1.60E-4, D: 6.24E-8 }, 
+          { value: ">C<", displayName: ">C<", H: 79.72 , G: 87.88, A: -9.09E+1, B: 5.57E-1, C: -9.00E-4, D: 4.69E-7 }, 
+          { value: "=CH-", displayName: "=CH-", H: 2.09, G: 11.30, A: -2.14, B: 5.74E-2, C: -1.64E-6, D: -1.59E-8 }, 
+          { value: "-C<", displayName: "-C<", H: 46.43, G: 54.05, A: -8.25, B: 1.01E-1, C: -1.42E-4, D: 6.78E-8 }, 
+        ],
+        3: [
+          { value: "-F", displayName: "-F" },
+          { value: "-Cl", displayName: "-Cl" },
+          { value: "-Br", displayName: "-Br" },
+          { value: "-I", displayName: "-I" },
+        ],
+        4: [
+          { value: "-OH", displayName: "-OH (alcohol)" },
+          { value: "-OH", displayName: "-OH (fenol)" },
+          { value: "-O-", displayName: "-O- (sin anillo)" },
+          { value: "-O-", displayName: "-O- (con anillo)" },
+          { value: ">C=O", displayName: ">C=O (sin anillo)" },
+          { value: ">C=O", displayName: ">C=O (con anillo)" },
+          { value: "O=CH-", displayName: "O=CH- (acido)" },
+          { value: "-COOH", displayName: "-COOH (acido)" },
+          { value: "-COO-", displayName: "-COO- (ester)" },
+          { value: "=O ", displayName: "=O (excepto lo anterior)" },
+        ],
+        5: [
+          { value: "-NH2", displayName: "-NH2" },
+          { value: ">NH", displayName: ">NH (sin anillo)" },
+          { value: ">NH", displayName: ">NH (con anillo)" },
+          { value: ">N-", displayName: ">N- (sin anillo)" },
+          { value: "-N=", displayName: "-N= (sin anillo)" },
+          { value: "-N=", displayName: "-N= (con anillo)" },
+          { value: "=NH", displayName: "=NH" },
+          { value: "-CN", displayName: "-CN" },
+          { value: "-NO2", displayName: "-NO2" },
+        ],
+        6: [
+          { value: "-SH", displayName: "-SH" },
+          { value: "-S-", displayName: "-S- (sin anillo)" },
+          { value: "-S-", displayName: "-S- (con anillo)" },
+        ],
+      };
+    
+      const typeSelect = document.getElementById("type-select");
+      const nameSelect = document.getElementById("name-select");
+      const chemicalResult = document.querySelector(".chemical-result");
+      const addIncrementForm = document.querySelector(".add-increment-form");
+      const incrementsTbody = document.getElementById("increments-tbody");
+    
+      const selectedIncrementsCount = {};
+    
+      incrementTypes.forEach((type, index) => {
+        const option = document.createElement("option");
+        option.value = index + 1;
+        option.textContent = type;
+        typeSelect.appendChild(option);
+      });
+    
+      typeSelect.addEventListener("change", function () {
+        nameSelect.innerHTML = "";
+    
+        const selectedValue = typeSelect.value;
+    
+        const names = incrementNamesPerType[selectedValue];
+        names.forEach(({ value, displayName }) => {
+          const option = document.createElement("option");
+          option.value = value;
+          option.textContent = displayName;
+          nameSelect.appendChild(option);
+        });
+      });
+    
+      addIncrementForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+    
+        const selectedName = nameSelect.value;
+        const selectedValue = typeSelect.value;
+        const names = incrementNamesPerType[selectedValue];
+    
+        if (selectedName !== "Seleccione" && selectedName !== "0") {
+          chemicalResult.textContent += selectedName + " ";
+    
+          if (!selectedIncrementsCount[selectedName]) {
+            selectedIncrementsCount[selectedName] = 1;
+          } else {
+            selectedIncrementsCount[selectedName] += 1;
+          }
+    
+          updateTable();
+        } else {
+          alert("Por favor seleccione en los dos campos!");
+        }
+      });
+    
+      function populateTable() {
+        Object.keys(incrementNamesPerType).forEach(typeKey => {
+          const typeName = incrementTypes[typeKey - 1];
+          if (typeName) {
+            const increments = incrementNamesPerType[typeKey];
+            let typeRowSpan = increments.length;
+            let isFirstRow = true;
+    
+            increments.forEach(increment => {
+              if (increment.value !== "Seleccione") {
+                const row = document.createElement("tr");
+    
+                if (isFirstRow) {
+                  const typeCell = document.createElement("td");
+                  typeCell.textContent = typeName;
+                  typeCell.rowSpan = typeRowSpan;
+                  row.appendChild(typeCell);
+                  isFirstRow = false;
+                }
+    
+                const nameCell = document.createElement("td");
+                nameCell.textContent = increment.displayName;
+                row.appendChild(nameCell);
+    
+                ["H", "G", "A", "B", "C", "D"].forEach(prop => {
+                  const cell = document.createElement("td");
+                  cell.textContent = increment[prop] || "-";
+                  row.appendChild(cell);
+                });
+    
+                const countCell = document.createElement("td");
+                countCell.textContent = selectedIncrementsCount[increment.value] || 0;
+                row.appendChild(countCell);
+    
+                incrementsTbody.appendChild(row);
+              }
+            });
+          }
+        });
+      }
+    
+      function updateTable() {
+        incrementsTbody.innerHTML = "";
+        populateTable();
+      }
+    
+      populateTable();
+    </script>    
+  </body>
+</html>
