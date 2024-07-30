@@ -75,19 +75,19 @@ html, body {
   overflow: hidden;
 }
 
+@media screen and (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+    overflow: auto;
+  }
+}
+
 /* Left section styles */
 .left-section {
   flex: 1 1 25%;
   display: flex;
   flex-direction: column;
-}
-
-@media (max-width: 768px) {
-  .left-section {
-    flex: 1 1 100%;
-    width: 100%;
-    margin-bottom: 20px;
-  }
+  overflow: auto;
 }
 
 /* Right section styles */
@@ -98,15 +98,20 @@ html, body {
   overflow: auto;
 }
 
-@media (max-width: 768px) {
+/* Responsive for sections */
+@media screen and (max-width: 768px) {
+  .left-section,
   .right-section {
     flex: 1 1 100%;
-    width: 100%;
+    overflow: visible;
   }
 }
 
 /* Chemical section styles */
-.chemical-section, .form-section, .table-information-section {
+.chemical-section, 
+.form-section, 
+.table-information-section,
+.results-section {
   width: 100%;
   max-width: 100%;
   padding: 20px;
@@ -168,36 +173,41 @@ html, body {
   transform: scale(1.05);
 }
 
-/* Table information section styles */
+/* Table section styles */
 .table-information-section {
-  overflow-x: auto;
-  overflow-y: auto;
+  flex: 1;
+  overflow: auto;
 }
 
-.table-information-section table {
+.styled-table {
   width: 100%;
   border-collapse: collapse;
-}
-
-.table-information-section th,
-.table-information-section td {
-  padding: 12px;
-  text-align: left;
-  border: 1px solid var(--select-border-color);
-}
-
-.table-information-section th {
-  background-color: var(--navbar-color);
-  color: var(--navbar-text-color);
-}
-
-.table-information-section td {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: var(--container-bg-color);
 }
 
-/* Responsive table styling */
-@media (max-width: 768px) {
-  .table-information-section table {
-    min-width: 600px;
-  }
+.styled-table thead tr {
+  background-color: var(--navbar-color);
+  color: var(--navbar-text-color);
+  text-align: left;
+  font-weight: bold;
+}
+
+.styled-table th, .styled-table td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid var(--navbar-color);
+}
+
+.styled-table td, .styled-table th {
+  border: 1px solid #e5e5e5;
 }

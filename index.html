@@ -44,11 +44,18 @@
             </form>
           </div>
         </section>
+
+        <section class="results-section">
+          <h2>Resultados:</h2>
+          <div class="results-container">
+            
+          </div>
+        </section>
       </div>
-      
+
       <div class="right-section">
         <section class="table-information-section">
-          <table>
+          <table class="styled-table">
             <thead>
               <tr>
                 <th>Tipo de Incremento</th>
@@ -95,43 +102,43 @@
         2: [
           { value: "-CH2-", displayName: "-CH2-", H: -26.80, G: -3.68, A: -6.03, B: 8.54E-2, C: -8.00E-6, D: -1.80E-8 }, 
           { value: ">CH-", displayName: ">CH-", H: 8.67, G: 40.99, A: -2.05E+1, B: 1.62E-1, C: -1.60E-4, D: 6.24E-8 }, 
-          { value: ">C<", displayName: ">C<", H: 79.72 , G: 87.88, A: -9.09E+1, B: 5.57E-1, C: -9.00E-4, D: 4.69E-7 }, 
+          { value: ">C<", displayName: ">C<", H: 79.72, G: 87.88, A: -9.09E+1, B: 5.57E-1, C: -9.00E-4, D: 4.69E-7 }, 
           { value: "=CH-", displayName: "=CH-", H: 2.09, G: 11.30, A: -2.14, B: 5.74E-2, C: -1.64E-6, D: -1.59E-8 }, 
           { value: "-C<", displayName: "-C<", H: 46.43, G: 54.05, A: -8.25, B: 1.01E-1, C: -1.42E-4, D: 6.78E-8 }, 
         ],
         3: [
-          { value: "-F", displayName: "-F" },
-          { value: "-Cl", displayName: "-Cl" },
-          { value: "-Br", displayName: "-Br" },
-          { value: "-I", displayName: "-I" },
+          { value: "-F", displayName: "-F", H: -251.92, G: -247.19, A: 2.65E+1, B: -9.13E-2, C: 1.91E-4, D: -1.03E-7 },
+          { value: "-Cl", displayName: "-Cl", H: -71.55, G: -64.31, A: 3.33E+1, B: -9.63E-2, C: 1.87E-4, D: -9.96E-8 },
+          { value: "-Br", displayName: "-Br", H: -29.48, G: -38.06, A: 2.86E+1, B: -6.49E-2, C: 1.36E-4, D: -7.45E-8 },
+          { value: "-I", displayName: "-I", H: 21.06, G: 5.74, A: 3.21E+1, B: -6.41E-2, C: 1.26E-4, D: -6.87E-8 },
         ],
         4: [
-          { value: "-OH", displayName: "-OH (alcohol)" },
-          { value: "-OH", displayName: "-OH (fenol)" },
-          { value: "-O-", displayName: "-O- (sin anillo)" },
-          { value: "-O-", displayName: "-O- (con anillo)" },
-          { value: ">C=O", displayName: ">C=O (sin anillo)" },
-          { value: ">C=O", displayName: ">C=O (con anillo)" },
-          { value: "O=CH-", displayName: "O=CH- (acido)" },
-          { value: "-COOH", displayName: "-COOH (acido)" },
-          { value: "-COO-", displayName: "-COO- (ester)" },
-          { value: "=O ", displayName: "=O (excepto lo anterior)" },
+          { value: "-OH", displayName: "-OH (alcohol)", H: -208.04, G: -189.20, A: 2.57E+1, B: -6.91E-2, C: 1.77E-4, D: -9.88E-8 },
+          { value: "-OH", displayName: "-OH (phenol)", H: -221.65, G: -197.37, A: -2.81, B: 1.11E-1, C: -1.16E-4, D: 4.94E-8 },
+          { value: "-O-", displayName: "-O- (nonring)", H: -132.22, G: -105.00, A: 2.55E+1, B: -6.32E-2, C: 1.11E-4, D: -5.48E-8 },
+          { value: "-O-", displayName: "-O- (ring)", H: -138.16, G: -98.22, A: 1.22E+1, B: -1.26E-2, C: 6.03E-5, D: -3.86E-8 },
+          { value: ">C=O", displayName: ">C=O (nonring)", H: -133.22, G: -120.50, A: 6.45, B: 6.70E-2, C: -3.57E-5, D: 2.86E-9 },
+          { value: ">C=O", displayName: ">C=O (ring)", H: -164.50, G: -126.27, A: 3.04E+1, B: -8.29E-2, C: 2.36E-4, D: -1.31E-7 },
+          { value: "O=CH-", displayName: "O=CH- (aldehyde)", H: -162.03, G: -143.48, A: 3.09E+1, B: -3.36E-2, C: 1.60E-4, D: -9.88E-8 },
+          { value: "-COOH", displayName: "-COOH (acid)", H: -426.72, G: -387.80, A: 2.41E+1, B: 4.27E-2, C: 8.04E-5, D: -6.84E-8 },
+          { value: "-COO-", displayName: "-COO- (ester)", H: -337.92, G: -301.95, A: 2.45E+1, B: 4.02E-2, C: 4.02E-5, D: -4.52E-8 },
+          { value: "=O", displayName: "=O (except as above)", H: -247.61, G: -250.83, A: 6.82, B: 1.96E-2, C: 1.27E-5, D: -1.78E-8 },
         ],
         5: [
-          { value: "-NH2", displayName: "-NH2" },
-          { value: ">NH", displayName: ">NH (sin anillo)" },
-          { value: ">NH", displayName: ">NH (con anillo)" },
-          { value: ">N-", displayName: ">N- (sin anillo)" },
-          { value: "-N=", displayName: "-N= (sin anillo)" },
-          { value: "-N=", displayName: "-N= (con anillo)" },
-          { value: "=NH", displayName: "=NH" },
-          { value: "-CN", displayName: "-CN" },
-          { value: "-NO2", displayName: "-NO2" },
+          { value: "-NH2", displayName: "-NH2", H: -22.02, G: 14.07, A: 2.69E+1, B: -4.12E-2, C: 1.64E-4, D: -9.76E-8 },
+          { value: ">NH", displayName: ">NH (nonring)", H: 53.47, G: 89.39, A: -1.21, B: 7.62E-2, C: -4.86E-5, D: 1.05E-8 },
+          { value: ">NH", displayName: ">NH (ring)", H: 31.65, G: 75.61, A: 1.18E+1, B: -3.20E-2, C: 1.07E-4, D: -6.28E-8 },
+          { value: ">N-", displayName: ">N- (nonring)", H: 123.34, G: 163.16, A: -3.11E+1, B: 2.27E-1, C: -3.20E-4, D: 1.46E-7 },
+          { value: "-N=", displayName: "-N= (nonring)", H: 23.61, G: "-", A: "-", B: "-", C: "-", D: "-" },
+          { value: "-N=", displayName: "-N= (ring)", H: 55.52, G: 79.93, A: 8.83, B: -3.84E-3, C: 4.35E-5, D: -2.60E-8 },
+          { value: "=NH", displayName: "=NH", H: 93.70, G: 119.65, A: 5.69, B: 4.12E-2, C: 1.28E-4, D: -8.88E-8 },
+          { value: "-CN", displayName: "-CN", H: 88.43, G: 89.22, A: 3.65E+1, B: -7.33E-2, C: 1.84E-4, D: -1.03E-7 },
+          { value: "-NO2", displayName: "-NO2", H: -66.57, G: -16.83, A: 2.59E+1, B: -3.74E-3, C: 1.29E-4, D: -8.88E-8 },
         ],
         6: [
-          { value: "-SH", displayName: "-SH" },
-          { value: "-S-", displayName: "-S- (sin anillo)" },
-          { value: "-S-", displayName: "-S- (con anillo)" },
+          { value: "-SH", displayName: "-SH", H: -17.33, G: -22.99, A: 3.53E+1, B: -7.58E-2, C: 1.85E-4, D: -1.03E-7 },
+          { value: "-S-", displayName: "-S- (nonring)", H: 41.87, G: 33.12, A: 1.96E+1, B: -5.61E-3, C: 4.02E-5, D: -2.76E-8 },
+          { value: "-S-", displayName: "-S- (ring)", H: 39.10, G: 27.72, A: 1.67E+1, B: -4.81E-2, C: 2.77E-5, D: -2.11E-8 },
         ],
       };
     
