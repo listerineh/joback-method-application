@@ -111,7 +111,8 @@ html, body {
 .chemical-section, 
 .form-section, 
 .table-information-section,
-.results-section {
+.results-section,
+.temperature-section {
   width: 100%;
   max-width: 100%;
   padding: 20px;
@@ -142,12 +143,26 @@ html, body {
   flex-direction: column;
 }
 
+.add-increment-form-inputs {
+  display: flex;
+  flex-direction: column;
+}
+
 .add-increment-form label {
   font-size: 1.1rem;
   margin-bottom: 8px;
 }
 
 .add-increment-form select {
+  padding: 12px;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  background-color: var(--select-bg-color);
+  border: 1px solid var(--select-border-color);
+  border-radius: 8px;
+}
+
+.add-increment-form-inputs input {
   padding: 12px;
   font-size: 1rem;
   margin-bottom: 20px;
@@ -172,6 +187,24 @@ html, body {
   background-color: var(--button-hover-bg-color);
   transform: scale(1.05);
 }
+
+.add-increment-form-inputs button {
+  padding: 12px 18px;
+  font-size: 1.1rem;
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-transform: uppercase;
+}
+
+.add-increment-form-inputs button:hover {
+  background-color: var(--button-hover-bg-color);
+  transform: scale(1.05);
+}
+
 
 /* Table section styles */
 .table-information-section {
@@ -210,4 +243,35 @@ html, body {
 
 .styled-table td, .styled-table th {
   border: 1px solid #e5e5e5;
+}
+
+/* Results section styles */
+.results-section {
+  width: 100%;
+  padding: 20px;
+  background-color: var(--container-bg-color);
+  color: var(--container-text-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.results-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.results-container p {
+  padding: 15px;
+  background-color: var(--select-bg-color);
+  border: 1px solid var(--select-border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--text-color);
 }
