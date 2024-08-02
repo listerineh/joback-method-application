@@ -275,3 +275,8 @@ html, body {
   font-size: 1rem;
   color: var(--text-color);
 }
+
+.action-cell {
+  padding: 5;
+  color: 'red';
+}

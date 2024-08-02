@@ -80,6 +80,7 @@
                 <th>C</th>
                 <th>D</th>
                 <th>Cantidad</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody id="increments-tbody"></tbody>
@@ -166,21 +167,21 @@
       const formulaElement = document.getElementById("joback-formula");
       const resultElement = document.getElementById("joback-result");
       const dataElement = document.getElementById("joback-data");
-    
+
       const selectedIncrementsCount = {};
-    
+
       incrementTypes.forEach((type, index) => {
         const option = document.createElement("option");
         option.value = index + 1;
         option.textContent = type;
         typeSelect.appendChild(option);
       });
-    
+
       typeSelect.addEventListener("change", function () {
         nameSelect.innerHTML = "";
-    
+
         const selectedValue = typeSelect.value;
-    
+
         const names = incrementNamesPerType[selectedValue];
         names.forEach(({ value, displayName }) => {
           const option = document.createElement("option");
@@ -189,26 +190,26 @@
           nameSelect.appendChild(option);
         });
       });
-    
+
       addIncrementForm.addEventListener("submit", function (event) {
         event.preventDefault();
-    
+
         const selectedName = nameSelect.value;
         const selectedDisplayName = nameSelect.options[nameSelect.selectedIndex].text;
         const selectionKey = `${selectedName}@${selectedDisplayName}`;
 
         const selectedValue = typeSelect.value;
         const names = incrementNamesPerType[selectedValue];
-    
+
         if (selectedName !== "Seleccione" && selectedName !== "0") {
           chemicalResult.textContent += selectedName + " ";
-    
+
           if (!selectedIncrementsCount[selectionKey]) {
             selectedIncrementsCount[selectionKey] = 1;
           } else {
             selectedIncrementsCount[selectionKey] += 1;
           }
-    
+
           updateTable();
         } else {
           alert("Por favor seleccione en los dos campos!");
@@ -252,7 +253,7 @@
 
           const Cp = (A * (maxTempValue - minTempValue)) + (B * (maxTempValue - minTempValue) ** 2 / 2) + (C * (maxTempValue - minTempValue) ** 3 / 3) + (D * (maxTempValue - minTempValue) ** 4 / 4);
 
-          resultElement.textContent = `Cp = ${Cp.toFixed(2)} J/(mol·K)`;
+          resultElement.textContent = `Cp = ${Cp.toFixed(2)} J/mol`;
         } else {
           alert("Por favor, ingrese ambas temperaturas.");
         }
@@ -292,6 +293,17 @@
                 countCell.textContent = selectedIncrementsCount[`${increment.value}@${increment.displayName}`] || 0;
                 row.appendChild(countCell);
 
+                const decreaseButton = document.createElement("button");
+                decreaseButton.textContent = "-";
+                decreaseButton.style.padding = "5px";
+                decreaseButton.style.color = "red";
+                decreaseButton.addEventListener("click", function() {
+                  decreaseCount(increment.value, increment.displayName);
+                });
+                const actionCell = document.createElement("td");
+                actionCell.appendChild(decreaseButton);
+                row.appendChild(actionCell);
+
                 incrementsTbody.appendChild(row);
               }
             });
@@ -302,6 +314,17 @@
       function updateTable() {
         incrementsTbody.innerHTML = "";
         populateTable();
+      }
+
+      function decreaseCount(incrementValue, incrementDisplayName) {
+        const selectionKey = `${incrementValue}@${incrementDisplayName}`;
+        if (selectedIncrementsCount[selectionKey] && selectedIncrementsCount[selectionKey] > 0) {
+          selectedIncrementsCount[selectionKey] -= 1;
+          if (selectedIncrementsCount[selectionKey] === 0) {
+            delete selectedIncrementsCount[selectionKey];
+          }
+          updateTable();
+        }
       }
 
       populateTable();
