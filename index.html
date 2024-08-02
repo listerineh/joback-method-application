@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="assets/logo.svg" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Método Joback</title>
   </head>
   <body class="app light-mode">
@@ -294,9 +295,12 @@
                 row.appendChild(countCell);
 
                 const decreaseButton = document.createElement("button");
-                decreaseButton.textContent = "-";
+                decreaseButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
                 decreaseButton.style.padding = "5px";
                 decreaseButton.style.color = "red";
+                decreaseButton.style.backgroundColor = "transparent";
+                decreaseButton.style.border = "none";
+                decreaseButton.style.cursor = "pointer";
                 decreaseButton.addEventListener("click", function() {
                   decreaseCount(increment.value, increment.displayName);
                 });
