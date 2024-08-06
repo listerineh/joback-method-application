@@ -311,6 +311,12 @@ html, body {
   border-radius: 10px;
 }
 
+@media screen and (max-width: 768px) {
+  .modal-content {
+    width: 90%;
+  }
+}
+
 .close-button {
   color: #aaa;
   float: right;
@@ -341,14 +347,22 @@ html, body {
   margin-bottom: 5px;
 }
 
+@media screen and (max-width: 768px) {
+  .modal-content p {
+    font-size: 14px;
+  }
+}
+
 .modal-content a {
   color: #0066cc;
   text-decoration: none;
   cursor: pointer;
 }
 
-.modal-content a:hover {
-  text-decoration: underline;
+@media screen and (max-width: 768px) {
+  .modal-content a {
+    word-break: break-all;
+  }
 }
 
 .info-important {
