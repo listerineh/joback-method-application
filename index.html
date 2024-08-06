@@ -16,6 +16,9 @@
           <img src="assets/logo.svg" alt="Project Logo" />
           <h1>Método Joback</h1>
         </div>
+        <div class="info-button">
+          <i class="fas fa-info-circle"></i>
+        </div>
       </div>
     </header>
 
@@ -96,8 +99,8 @@
           <h3>Método de Joback</h3>
           <p>Desarrollado por Joback y Reid en 1987 surgió para facilitar la estimación de propiedades críticas sin necesidad de datos experimentales extensos, mejorando la precisión en comparación con métodos anteriores y haciéndolo más accesible para la química y la ingeniería.</p>
           <p>Este método utiliza un enfoque de contribución de grupos, que, además de estimar la capacidad calorífica a presión constante (Cp), permite calcular propiedades termodinámicas a partir de la estructura molecular, descomponiendo compuestos en 41 grupos estructurales que representan fragmentos moleculares.</p>
-          <p>Nota: este programa únicamente te ayuda a estimar la capacidad calorífica a presión constante de una sustancia gaseosa.</p>
-          <p>Y, aunque este método es especialmente útil para gases ideales, también puede aplicarse a líquidos y sólidos en ciertas condiciones. (Fierro et al., 2016)</p>
+          <p class="info-important">Nota: este programa únicamente te ayuda a estimar la capacidad calorífica a presión constante de una sustancia gaseosa.<br>
+          Y, aunque este método es especialmente útil para gases ideales, también puede aplicarse a líquidos y sólidos en ciertas condiciones. (Fierro et al., 2016)</p>
           <p><strong>Para más información:</strong></p>
           <p><i>Fierro, E., Faúndez, C., & Valderrama, J. (Junio de 2016). Método de Contribución de Grupos: una Herramienta Fundamental en cursos Avanzados de Termodinámica y Física de Fluidos para la Estimación de Propiedades de Sustancias. Obtenido de Formación Universitaria: <a href="https://www.redalyc.org/pdf/3735/373546080011.pdf" target="_blank">https://www.redalyc.org/pdf/3735/373546080011.pdf</a></i></p>
           </p>
@@ -183,6 +186,7 @@
       const formulaElement = document.getElementById("joback-formula");
       const resultElement = document.getElementById("joback-result");
       const dataElement = document.getElementById("joback-data");
+      const infoButton = document.querySelector(".info-button");
 
       const selectedIncrementsCount = {};
 
@@ -201,6 +205,11 @@
             modal.style.display = "none";
           }
         };
+      });
+
+      infoButton.addEventListener("click", function () {
+        const modal = document.getElementById("welcome-modal");
+        modal.style.display = "block";
       });
 
       incrementTypes.forEach((type, index) => {
