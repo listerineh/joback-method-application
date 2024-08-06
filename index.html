@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Método Joback</title>
   </head>
-  <body class="app light-mode">
+
+  <body class="app">
     <header class="navbar">
       <div class="navbar-container">
         <div class="logo-container">
@@ -86,7 +87,7 @@
             </thead>
             <tbody id="increments-tbody"></tbody>
           </table>
-        </section>`
+        </section>
       </div>
     </main>
 
@@ -197,10 +198,9 @@
 
         const selectedName = nameSelect.value;
         const selectedDisplayName = nameSelect.options[nameSelect.selectedIndex].text;
-        const selectionKey = `${selectedName}@${selectedDisplayName}`;
-
         const selectedValue = typeSelect.value;
-        const names = incrementNamesPerType[selectedValue];
+        const selectedTypeName = incrementTypes[selectedValue - 1];
+        const selectionKey = `${selectedTypeName}@${selectedName}@${selectedDisplayName}`;
 
         if (selectedName !== "Seleccione" && selectedName !== "0") {
           chemicalResult.textContent += selectedName + " ";
@@ -234,7 +234,7 @@
 
           let A = 0, B = 0, C = 0, D = 0;
           Object.keys(selectedIncrementsCount).forEach(incrementName => {
-            const [incrementType, incrementDisplayName] = incrementName.split("@");
+            const [incrementTypeName, incrementType, incrementDisplayName] = incrementName.split("@");
             const increment = Object.values(incrementNamesPerType).flat().find(inc => inc.value === incrementType);
             if (increment) {
               A += increment.A * selectedIncrementsCount[incrementName];
@@ -245,16 +245,16 @@
           });
 
           dataElement.innerHTML = `A = ${A}<br>B = ${B}<br>C = ${C}<br>D = ${D}`;
-          formulaElement.textContent = `Cp = (${A} - 37,93) + (${B} - 0.21) * T + (${C} - 3.91e-4) * T^2 + (${D} + 2.05e-7) * T^3`;
+          formulaElement.textContent = `Cp = (${A} - 37,93) + (${B} + 0.21) * T + (${C} - 3.91e-4) * T^2 + (${D} + 2.05e-7) * T^3`;
 
           A = A - 37.93;
-          B = B - 0.21;
+          B = B + 0.21;
           C = C - 3.91E-4;
           D = D + 2.05E-7;
 
           const Cp = (A * (maxTempValue - minTempValue)) + (B * (maxTempValue - minTempValue) ** 2 / 2) + (C * (maxTempValue - minTempValue) ** 3 / 3) + (D * (maxTempValue - minTempValue) ** 4 / 4);
 
-          resultElement.textContent = `Cp = ${Cp.toFixed(2)} J/mol`;
+          resultElement.innerHTML = `Temperatura mínima = ${minTempValue}<br>Temperatura máxima = ${maxTempValue}<br>Cp = ${Cp.toFixed(2)} J/mol`;
         } else {
           alert("Por favor, ingrese ambas temperaturas.");
         }
@@ -291,7 +291,8 @@
                 });
 
                 const countCell = document.createElement("td");
-                countCell.textContent = selectedIncrementsCount[`${increment.value}@${increment.displayName}`] || 0;
+                const keyToPopulate = `${typeName}@${increment.value}@${increment.displayName}`;
+                countCell.textContent = selectedIncrementsCount[keyToPopulate] || 0;
                 row.appendChild(countCell);
 
                 const decreaseButton = document.createElement("button");
@@ -301,8 +302,9 @@
                 decreaseButton.style.backgroundColor = "transparent";
                 decreaseButton.style.border = "none";
                 decreaseButton.style.cursor = "pointer";
+
                 decreaseButton.addEventListener("click", function() {
-                  decreaseCount(increment.value, increment.displayName);
+                  decreaseCount(increment.value, increment.displayName, typeName);
                 });
                 const actionCell = document.createElement("td");
                 actionCell.appendChild(decreaseButton);
@@ -320,12 +322,14 @@
         populateTable();
       }
 
-      function decreaseCount(incrementValue, incrementDisplayName) {
-        const selectionKey = `${incrementValue}@${incrementDisplayName}`;
+      function decreaseCount(incrementValue, incrementDisplayName, typeName) {
+        const selectionKey = `${typeName}@${incrementValue}@${incrementDisplayName}`;
+        chemicalResult.textContent = chemicalResult.textContent.replace(`${incrementValue} `, '');
         if (selectedIncrementsCount[selectionKey] && selectedIncrementsCount[selectionKey] > 0) {
           selectedIncrementsCount[selectionKey] -= 1;
           if (selectedIncrementsCount[selectionKey] === 0) {
             delete selectedIncrementsCount[selectionKey];
+            updateTable();
           }
           updateTable();
         }
