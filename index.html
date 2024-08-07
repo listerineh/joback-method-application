@@ -275,12 +275,16 @@
           let A = 0, B = 0, C = 0, D = 0;
           Object.keys(selectedIncrementsCount).forEach(incrementName => {
             const [incrementTypeName, incrementType, incrementDisplayName] = incrementName.split("@");
-            const increment = Object.values(incrementNamesPerType).flat().find(inc => inc.value === incrementType);
+
+            const incrementTypeNameIndex = incrementTypes.indexOf(incrementTypeName) + 1;
+            const incrementFound = incrementNamesPerType[incrementTypeNameIndex];
+            const increment = incrementFound.find(inc => inc.displayName === incrementDisplayName);
+
             if (increment) {
-              A += increment.A * selectedIncrementsCount[incrementName];
-              B += increment.B * selectedIncrementsCount[incrementName];
-              C += increment.C * selectedIncrementsCount[incrementName];
-              D += increment.D * selectedIncrementsCount[incrementName];
+              A += (increment.A * selectedIncrementsCount[incrementName]);
+              B += (increment.B * selectedIncrementsCount[incrementName]);
+              C += (increment.C * selectedIncrementsCount[incrementName]);
+              D += (increment.D * selectedIncrementsCount[incrementName]);
             }
           });
 
